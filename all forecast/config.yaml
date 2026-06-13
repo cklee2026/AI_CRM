@@ -1,0 +1,132 @@
+database:
+  path: ./data/prices.duckdb
+default_foods:
+- id: 1
+  name: Rice (Long Grain)
+  category: grains
+  unit: kg
+  is_custom: false
+- id: 2
+  name: Cooking Oil (Palm)
+  category: oils
+  unit: liter
+  is_custom: false
+- id: 3
+  name: Eggs
+  category: proteins
+  unit: dozen
+  is_custom: false
+- id: 4
+  name: Sugar
+  category: grains
+  unit: kg
+  is_custom: false
+- id: 5
+  name: Flour (Wheat)
+  category: grains
+  unit: kg
+  is_custom: false
+- id: 6
+  name: Chicken (Whole)
+  category: proteins
+  unit: kg
+  is_custom: false
+- id: 7
+  name: Fish (Fresh)
+  category: proteins
+  unit: kg
+  is_custom: false
+- id: 8
+  name: Onions
+  category: vegetables
+  unit: kg
+  is_custom: false
+- id: 9
+  name: Tomatoes
+  category: vegetables
+  unit: kg
+  is_custom: false
+- id: 10
+  name: Milk
+  category: dairy
+  unit: liter
+  is_custom: false
+locations:
+- id: 1
+  name: International
+  level: 0
+  parent_id: null
+  country_code: null
+- id: 2
+  name: Malaysia
+  level: 1
+  parent_id: 1
+  country_code: MY
+- id: 3
+  name: Sabah
+  level: 2
+  parent_id: 2
+  country_code: MY
+- id: 4
+  name: Lahad Datu
+  level: 3
+  parent_id: 3
+  country_code: MY
+scrapers:
+  world_bank:
+    enabled: true
+    schedule: weekly
+    source_type: manual_download
+    url: https://www.worldbank.org/en/research/commodity-markets
+  pricecatcher:
+    enabled: true
+    schedule: weekly
+    base_url: https://storage.data.gov.my/pricecatcher
+    items:
+      Rice (Long Grain):
+        item_code: 904
+        factor: 0.1
+      Cooking Oil (Palm):
+        item_code: 263
+        factor: 0.2
+      Eggs:
+        item_code: 120
+        factor: 1.2
+      Chicken (Whole):
+        item_code: 1
+        factor: 1.0
+      Sugar:
+        item_code: 1589
+        factor: 1.0
+      Tomatoes:
+        item_code: 114
+        factor: 1.0
+      Milk:
+        item_code: 224
+        factor: 1.0
+      Bawang Kecil Merah Rose Import (India):
+        item_code: 131
+        factor: 1.0
+      Onions:
+        item_code: 129
+        factor: 1.0
+alerts:
+  threshold_pct: 10
+  log_file: ./data/alerts_log.csv
+  telegram:
+    enabled: false
+    bot_token: ''
+    chat_id: ''
+  email:
+    enabled: false
+    smtp_host: ''
+    smtp_port: 587
+    use_tls: true
+    username: ''
+    password: ''
+    from: ''
+    to: ''
+dashboard:
+  title: Food Price Tracker - International to Lahad Datu
+  theme: light
+  update_interval: 60
