@@ -247,49 +247,24 @@ def fetch_files(months_back: int = 2) -> list:
         print("Downloading premise lookup...")
         _download(f"{base}/lookup_premise.parquet", premise_file)
 
-    # KPDN keeps appending new days to the CURRENT month's file (and may add
-    # late readings to the PREVIOUS month), so those two must always be
-    # re-downloaded even when a cached copy exists. Older months never change.
-    today = date.today()
-    fresh_months = {(today.year, today.month)}
-    py, pm = (today.year - 1, 12) if today.month == 1 else (today.year, today.month - 1)
-    fresh_months.add((py, pm))
-
     monthly_files, missed = [], 0
     for y, m in _month_list(months_back + 2):  # extra slack for unpublished months
         if len(monthly_files) >= months_back:
             break
         fname = f"pricecatcher_{y:04d}-{m:02d}.parquet"
         local = CACHE_DIR / fname
-        must_refresh = (y, m) in fresh_months
-        if local.exists() and not must_refresh:
+        if local.exists():
             monthly_files.append(local)
             continue
-        action = "Refreshing" if local.exists() else "Downloading"
-        print(f"{action} {fname}...")
-        # Download to a temp file first so a failed refresh keeps the old copy.
-        tmp = local.with_suffix(".tmp")
-        ok = False
-        try:
-            ok = _download(f"{base}/{fname}", tmp)
-        except Exception as e:
-            tmp.unlink(missing_ok=True)
-            print(f"  [WARN] {fname} download failed ({e})")
-        if ok:
-            tmp.replace(local)
+        print(f"Downloading {fname}...")
+        if _download(f"{base}/{fname}", local):
             monthly_files.append(local)
             print(f"[OK] {fname} ({local.stat().st_size // 1024} KB)")
         else:
-            tmp.unlink(missing_ok=True)
-            if local.exists():
-                # Refresh failed but we still have the older cached copy - use it.
-                monthly_files.append(local)
-                print(f"  using cached {fname}")
-            else:
-                missed += 1
-                print(f"  {fname} not published yet, trying earlier month")
-                if missed > 3:
-                    break
+            missed += 1
+            print(f"  {fname} not published yet, trying earlier month")
+            if missed > 3:
+                break
 
     return monthly_files
 
@@ -342,15 +317,9 @@ def aggregate_weekly(monthly_files: list, items: dict = None) -> list:
 
 
 def store(records: list) -> dict:
-    """Upsert weekly averages into the main prices table.
-
-    A week's average grows as KPDN appends more days to the current month's
-    file, so an existing row for the same food/location/week is UPDATED when
-    the recomputed price changed (e.g. the current week mid-update). Rows that
-    are unchanged are skipped; brand-new weeks are inserted.
-    """
+    """Insert weekly averages into the main prices table (skip duplicates)."""
     conn = get_connection()
-    imported, updated, skipped = 0, 0, 0
+    imported, skipped = 0, 0
     try:
         for rec in records:
             food_id = get_food_id(rec["food"], conn)
@@ -358,22 +327,12 @@ def store(records: list) -> dict:
             if food_id is None or location_id is None:
                 continue
 
-            notes = f"weekly avg of {rec['samples']} readings"
             existing = conn.execute(
-                """SELECT id, price FROM prices
-                   WHERE food_id=? AND location_id=? AND collected_date=?
-                     AND price_type='retail'""",
+                "SELECT id FROM prices WHERE food_id=? AND location_id=? AND collected_date=?",
                 [food_id, location_id, rec["week_start"]]
             ).fetchall()
             if existing:
-                row_id, old_price = existing[0]
-                if round(float(old_price), 4) == round(float(rec["price"]), 4):
-                    skipped += 1
-                    continue
-                conn.execute(
-                    "UPDATE prices SET price=?, notes=? WHERE id=?",
-                    [rec["price"], notes, row_id])
-                updated += 1
+                skipped += 1
                 continue
 
             next_id = conn.execute(
@@ -384,91 +343,14 @@ def store(records: list) -> dict:
                                     collected_date, source, notes)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """, [next_id, food_id, location_id, rec["price"], "MYR",
-                  rec["week_start"], "KPDN PriceCatcher", notes])
+                  rec["week_start"], "KPDN PriceCatcher",
+                  f"weekly avg of {rec['samples']} readings"])
             imported += 1
         conn.commit()
     finally:
         conn.close()
 
-    return {"imported": imported, "updated": updated, "skipped": skipped}
-
-
-def premise_price_extremes(food_name: str, location: str = "Lahad Datu",
-                           lookback_days: int = 7) -> dict:
-    """Find the cheapest and dearest individual shop (premise) for a food.
-
-    Reads the cached PriceCatcher parquet files directly (premise-level data
-    that the weekly-average pipeline discards) and returns, for the most
-    recent ~week of readings in the given geography, which shop charged the
-    lowest price and which the highest. Useful as a "where to buy" reference.
-
-    Returns a dict like:
-      {"food": ..., "location": ..., "as_of": "2026-06-10",
-       "low":  {"premise": ..., "type": ..., "price": 3.02},
-       "high": {"premise": ..., "type": ..., "price": 9.43},
-       "shops": 18}
-    or {"available": False, "reason": ...} when nothing can be computed.
-    """
-    geo_filter = GEO_FILTERS.get(location)
-    if geo_filter is None:
-        return {"available": False, "reason": f"Unknown location '{location}'."}
-
-    mappings = get_item_mappings()
-    spec = mappings.get(food_name)
-    if not spec:
-        return {"available": False,
-                "reason": f"No PriceCatcher item mapped for '{food_name}'."}
-    item_code = int(spec["item_code"])
-    factor = float(spec.get("factor", 1.0))
-
-    premise_file = CACHE_DIR / "lookup_premise.parquet"
-    files = sorted(CACHE_DIR.glob("pricecatcher_*.parquet"))[-2:]  # 2 newest months
-    if not files or not premise_file.exists():
-        return {"available": False, "reason": "No cached price files yet."}
-
-    file_list = ", ".join(f"'{f}'" for f in files)
-    pf = str(premise_file)
-    con = _duckdb.connect()
-    try:
-        rows = con.execute(f"""
-            WITH readings AS (
-                SELECT pr.premise AS premise, pr.premise_type AS premise_type,
-                       pc.price AS price, pc.date AS date
-                FROM read_parquet([{file_list}]) pc
-                JOIN read_parquet('{pf}') pr
-                  ON CAST(pc.premise_code AS BIGINT) = CAST(pr.premise_code AS BIGINT)
-                WHERE pc.item_code = ? AND pc.price > 0 AND {geo_filter}
-            ),
-            recent AS (
-                SELECT * FROM readings
-                WHERE date >= (SELECT MAX(date) FROM readings) - ?
-            )
-            SELECT premise, premise_type, AVG(price) AS avg_price,
-                   (SELECT MAX(date) FROM recent) AS as_of
-            FROM recent
-            GROUP BY premise, premise_type
-            ORDER BY avg_price
-        """, [item_code, lookback_days]).fetchall()
-    finally:
-        con.close()
-
-    if not rows:
-        return {"available": False,
-                "reason": "No recent premise-level readings for this item."}
-
-    low, high = rows[0], rows[-1]
-    as_of = low[3]
-    return {
-        "available": True,
-        "food": food_name,
-        "location": location,
-        "as_of": as_of.isoformat() if hasattr(as_of, "isoformat") else str(as_of),
-        "shops": len(rows),
-        "low": {"premise": low[0], "type": low[1],
-                "price": round(float(low[2]) * factor, 2)},
-        "high": {"premise": high[0], "type": high[1],
-                 "price": round(float(high[2]) * factor, 2)},
-    }
+    return {"imported": imported, "skipped": skipped}
 
 
 def run(months_back: int = 2) -> dict:
@@ -481,9 +363,8 @@ def run(months_back: int = 2) -> dict:
     records = aggregate_weekly(files)
     result = store(records)
     result["message"] = (
-        f"PriceCatcher: {result['imported']} new + {result.get('updated', 0)} "
-        f"refreshed weekly prices ({result['skipped']} unchanged) "
-        f"from {len(files)} monthly file(s)."
+        f"PriceCatcher: {result['imported']} new weekly prices "
+        f"({result['skipped']} already existed) from {len(files)} monthly file(s)."
     )
     return result
 

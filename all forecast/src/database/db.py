@@ -99,6 +99,37 @@ def add_food(name: str, category: str, unit: str) -> int:
     finally:
         conn.close()
 
+def delete_food(name: str) -> dict:
+    """Delete a food and everything tied to it.
+
+    Removes its prices and any PriceCatcher tracking mapping first (FK order),
+    so it disappears from every dropdown AND won't be re-imported on the next
+    scrape. Returns a summary of what was removed.
+    """
+    conn = get_connection()
+    try:
+        food_id = get_food_id(name, conn)
+        if food_id is None:
+            raise ValueError(f"Food '{name}' not found.")
+
+        n_prices = conn.execute(
+            "SELECT COUNT(*) FROM prices WHERE food_id = ?", [food_id]
+        ).fetchall()[0][0]
+
+        # Child rows first (prices references foods via FK).
+        conn.execute("DELETE FROM prices WHERE food_id = ?", [food_id])
+        # Stop future auto-import of this item (table may not exist on old DBs).
+        try:
+            conn.execute("DELETE FROM tracked_items WHERE food_id = ?", [food_id])
+        except Exception:
+            pass
+        conn.execute("DELETE FROM foods WHERE id = ?", [food_id])
+        conn.commit()
+        print(f"[OK] Deleted food '{name}' ({n_prices} prices removed)")
+        return {"food": name, "prices_removed": n_prices}
+    finally:
+        conn.close()
+
 def add_location(name: str, level: int, parent_name: str = None) -> int:
     """Add a user-defined location. Returns the new location id."""
     conn = get_connection()
