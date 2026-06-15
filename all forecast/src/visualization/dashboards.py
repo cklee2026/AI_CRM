@@ -99,6 +99,45 @@ def foods_with_data():
     finally:
         conn.close()
 
+@st.cache_data(ttl=900)
+def shop_extremes(food_name, location):
+    """Cheapest/dearest shop for a food in a location (from PriceCatcher
+    premise-level data). Cached 15 min. Returns None if unavailable."""
+    try:
+        from src.scrapers.pricecatcher import premise_price_extremes
+        res = premise_price_extremes(food_name, location)
+        return res if res.get("available") else None
+    except Exception:
+        return None
+
+
+def render_shop_extremes(food_name, location, title="哪里买最划算 / Where to buy"):
+    """Reusable UI block: shows the cheapest and dearest shop for a food.
+
+    Used on every page that queries an item's price, so the user always
+    has a "which shop is lowest/highest" reference for comparison.
+    'All Locations' falls back to Lahad Datu as the reference geography.
+    """
+    ref_loc = "Lahad Datu" if location in (None, "All Locations") else location
+    ext = shop_extremes(food_name, ref_loc)
+    if ext:
+        low, high = ext['low'], ext['high']
+        if title:
+            st.markdown(f"**🏪 {title}** · {food_name} @ {ref_loc}")
+        s1, s2 = st.columns(2)
+        with s1:
+            st.metric("🟢 最低 / Cheapest", f"RM {low['price']:.2f}")
+            st.caption(f"{low['premise']} · {low['type']}")
+        with s2:
+            st.metric("🔴 最高 / Dearest", f"RM {high['price']:.2f}")
+            st.caption(f"{high['premise']} · {high['type']}")
+        st.caption(f"参考 {ext['shops']} 间店铺 · 截至 {ext['as_of']} · "
+                   f"来源 KPDN PriceCatcher / {ext['shops']} shops "
+                   f"as of {ext['as_of']}")
+    else:
+        st.caption(f"⚠️ {ref_loc} 暂无 {food_name} 的店铺级价格数据 / "
+                   "No shop-level price data for this item & location")
+
 foods = load_foods()
 locations = load_locations()
 
@@ -412,6 +451,21 @@ if page == "Overview":
                     delta=f"{kpi['change_pct']:.1f}%",
                     delta_color="inverse",
                 )
+                ext = shop_extremes(kpi['food'], kpi['location'])
+                if ext:
+                    low, high = ext['low'], ext['high']
+                    st.markdown(
+                        "<div style='font-size:11px; line-height:1.5; color:#444;'>"
+                        f"🟢 <b>最低 / Cheapest</b> RM{low['price']:.2f}<br>"
+                        f"<span style='color:#666;'>{low['premise']} · {low['type']}</span><br>"
+                        f"🔴 <b>最高 / Dearest</b> RM{high['price']:.2f}<br>"
+                        f"<span style='color:#666;'>{high['premise']} · {high['type']}</span><br>"
+                        f"<span style='color:#999;'>{ext['shops']} 间店 · 截至 {ext['as_of']}</span>"
+                        "</div>",
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    st.caption("店铺明细暂无 / No shop-level data")
 
     st.subheader("Price Heatmap: Food x Location")
     st.caption("Note: International prices are in USD; Malaysian locations in MYR.")
@@ -464,6 +518,8 @@ elif page == "Trend Analysis":
         st.plotly_chart(fig, width="stretch")
     else:
         st.warning("No data available for this selection.")
+
+    render_shop_extremes(selected_food, selected_location)
 
     if location_param:
         prices = get_prices(selected_food, location_param, price_type=ptype_param)
@@ -538,6 +594,9 @@ elif page == "Price Analysis":
                             f"{fd[key]}")
             st.caption("🟢 高置信 / 🟡 中等 / ⚪ 仅供参考。全部由本地数据统计得出，"
                        "可复现、无需联网。")
+
+            st.divider()
+            render_shop_extremes(pa_food, pa_loc)
 
             if intl_param and (not rep["intl_driver"] or
                                rep["intl_driver"]["correlation"] is None):
@@ -631,6 +690,10 @@ elif page == "Forecast":
             "lo": "Low (95%)", "hi": "High (95%)"})
         st.dataframe(display, width="stretch", hide_index=True)
 
+        # --- Where to buy: cheapest / dearest shop for this item ---
+        st.subheader("哪里买最划算 / Where to buy")
+        render_shop_extremes(selected_food, selected_location, title="")
+
         # --- Why this forecast: evidence-based remarks ---
         st.subheader("Why this forecast / 预测依据")
         lang = st.radio("Language", ["中文", "English"], horizontal=True,
@@ -704,6 +767,12 @@ elif page == "Regional Comparison":
             })
     if comparison_data:
         st.dataframe(pd.DataFrame(comparison_data), width="stretch", hide_index=True)
+
+    st.divider()
+    rc_loc = st.selectbox("店铺参考地区 / Shop reference location",
+                          [l for l in locations if l not in ("International", "Malaysia")] or locations,
+                          index=0, key="rc_shop_loc")
+    render_shop_extremes(selected_food, rc_loc)
 
 # ============ PRICE CHAIN ============
 elif page == "Price Chain":
@@ -804,6 +873,11 @@ elif page == "Price Chain":
                        "命名不同)，加价仅供参考；选名称最接近的两项最准。")
         elif "wholesale" in latest or "retail" in latest:
             st.caption("再选另一个 MYR 层(批发或零售)即可显示加价对比。")
+
+        # Shop-level reference for the retail layer (PriceCatcher premise data)
+        if retl:
+            st.divider()
+            render_shop_extremes(retl["food"], retl["loc"])
 
 # ============ REPORT BUILDER ============
 elif page == "Report Builder":
@@ -956,6 +1030,9 @@ elif page == "Seasonal & Anomalies":
         display = anomalies.copy()
         display["date"] = display["date"].astype(str).str[:10]
         st.dataframe(display, width="stretch", hide_index=True)
+
+    st.divider()
+    render_shop_extremes(selected_food, selected_location)
 
 # ============ PRICE ALERTS ============
 elif page == "Price Alerts":
