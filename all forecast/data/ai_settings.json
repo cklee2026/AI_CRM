@@ -4,9 +4,9 @@
   "base_url": "https://api.deepseek.com",
   "model": "deepseek-v4-flash",
   "api_key": "",
-  "total_tokens_used": 9758,
-  "last_used": "2026-06-16T08:45:36",
+  "total_tokens_used": 13339,
+  "last_used": "2026-06-16T09:04:53",
   "disabled_reason": null,
   "disabled_at": null,
-  "api_key_protected": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbddpTWBCc0+VJQqJbjioLAAAAAACAAAAAAAQZgAAAAEAACAAAABakApGqPVtnHsw0HnGYTUToF75fGvwkmjt4BQfodz0DAAAAAAOgAAAAAIAACAAAADz7FIca64L2A44kawC+rNUjHUvSO24cg0ONZjiWGj1lDAAAACpz3YnYE1ehCDhI0Ey0t1sYa11BRKGyDDCO71Z3tFdS1Y5VEegIhoE9o+lDsbBDpFAAAAAgSkEfcElneoHza5MJWfuC1V6E9PkMUOYH9Xk+YqMv7/n0mzhuK8BS5NxFwqrW6LFSyyZhp/exaiGP/IrlBk/eA=="
+  "api_key_protected": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbddpTWBCc0+VJQqJbjioLAAAAAACAAAAAAAQZgAAAAEAACAAAAAbcFEG6YE6s5icXnaglaUf825LAjXLj0wcOB2KdNBnSwAAAAAOgAAAAAIAACAAAADizV5ZtSEZ0e/CC0pqi9MK1F4impwdvWsDuyhI6vSfsDAAAABUrHJx7cycXw7nM4fWE6DRAdSW5bP7cVRig1UL2BZTGfUnQKZ+0B2ZtAJGdcBC6phAAAAAg2IvUun/NY29D3XQaq21J3s1Z6DqmQeGXRVOqH1EPuflrUmpdBelaHMduuimWcDYZLXyb9MfmztV8vJX0Shzkw=="
 }

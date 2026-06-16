@@ -157,6 +157,8 @@ if page == "使用指南":
 - 📍 比较不同地区的价格差异
 - 🚨 发现异常的价格峰值
 - 📈 分析产品的季节性规律
+- 🏪 比较各店铺最低/最高价（哪里买最划算）
+- 📅 节庆与季节价格提醒（哪些日子会暴涨/暴跌）
 
 数据来源：**KPDN（马来西亚国内贸易部）官方价格数据** + 你手工添加的本地市场价
 
@@ -205,11 +207,20 @@ if page == "使用指南":
 | **Add Price** | 手动添加价格 | 输入你在本地市场看到的价格。用来补充官方数据 |
 | **Data** | 数据表 | 看所有价格的原始表格，可筛选和导出 |
 
+### ✨ **跨页面实用功能（新）**
+
+| 功能 | 在哪里 | 说明 |
+|------|--------|------|
+| **🏪 哪里买最划算** | Overview、Trend Analysis、Price Analysis、Forecast、Regional Comparison、Seasonal、Price Chain | 每个查价页面下方显示该商品当前**最便宜/最贵的店铺**（店名 + 类型），方便比价。数据来自 KPDN 店铺级记录 |
+| **📅 节庆与季节提醒** | Forecast、Seasonal & Anomalies、Price Alerts | 提醒哪些日子价格容易**暴涨或暴跌**：农历新年、斋戒月→开斋节、屠妖节等节前涨价窗口；以及该商品历史上最贵/最便宜的月份（来自你的数据）|
+| **🗑️ 管理 / 删除产品** | Data 页底部 | 删除你不需要的产品，之后所有下拉框和搜索都不再出现它，并停止自动更新 |
+| **🔄 开机自动更新** | 双击 `start_dashboard.bat` | 每天首次打开 dashboard 会自动从 KPDN 抓取最新价格（24 小时内只更新一次）|
+
 ### ⚙️ **系统设置**
 
 | 功能 | 用途 |
 |------|------|
-| **AI Settings** | 配置 API 密钥启用 AI 分析（可选）。会在 Forecast 页生成市场分析文字 |
+| **AI Settings** | 配置 API 密钥启用 AI 分析（可选）。AI 会**先抓取实时国际新闻**(Google News)再分析，引用真实来源+日期、不靠猜测，在 Forecast 页生成市场分析 |
 
 ---
 
@@ -291,6 +302,8 @@ A **food price monitoring and forecasting tool** that tracks food prices across 
 - 📍 Compare prices across different regions
 - 🚨 Detect unusual price spikes
 - 📈 Analyze seasonal patterns
+- 🏪 Compare cheapest/dearest shops (where to buy)
+- 📅 Festival & seasonal price alerts (which dates spike/crash)
 
 Data source: **KPDN (Ministry of Domestic Trade, Malaysia) official price data** + your manually added local market prices
 
@@ -339,11 +352,20 @@ Data source: **KPDN (Ministry of Domestic Trade, Malaysia) official price data**
 | **Add Price** | Manual data entry | Enter prices you saw locally. Supplements official data |
 | **Data** | Raw data table | View all price data in table format. Filter, sort, and export |
 
+### ✨ **Cross-page features (new)**
+
+| Feature | Where | What it does |
+|---------|-------|--------------|
+| **🏪 Where to buy** | Overview, Trend Analysis, Price Analysis, Forecast, Regional Comparison, Seasonal, Price Chain | Each price page shows the current **cheapest/dearest shop** for the item (shop name + type) for easy comparison. From KPDN shop-level records |
+| **📅 Festival & seasonal alerts** | Forecast, Seasonal & Anomalies, Price Alerts | Warns which dates tend to **spike or crash**: pre-festival demand windows (Chinese New Year, Ramadan→Hari Raya, Deepavali) and the item's historically most expensive/cheapest months (from your data) |
+| **🗑️ Manage / delete items** | Bottom of Data page | Delete items you don't need - they vanish from every dropdown & search and stop auto-updating |
+| **🔄 Auto-update on startup** | Double-click `start_dashboard.bat` | The first time you open the dashboard each day it auto-fetches the latest KPDN prices (once per 24h) |
+
 ### ⚙️ **System Settings**
 
 | Feature | Purpose |
 |---------|---------|
-| **AI Settings** | Configure API key to enable AI analysis (optional). Generates market analysis on Forecast page |
+| **AI Settings** | Configure API key to enable AI analysis (optional). The AI **fetches real-time international news** (Google News) first, then analyses - citing real sources + dates, not guessing. Generates market analysis on the Forecast page |
 
 ---
 
