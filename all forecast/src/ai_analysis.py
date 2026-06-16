@@ -255,10 +255,13 @@ def test_connection(settings: dict) -> tuple:
 
 def generate_forecast_analysis(food: str, location: str,
                                result: dict, lang: str = "zh") -> str:
-    """Ask the AI for a market analysis of a forecast result.
+    """Ask the AI for a market analysis of a forecast result, GROUNDED in
+    real-time news headlines (Google News) about the commodity.
 
     `result` is the dict from forecast_prices(). The prompt contains only
-    real computed numbers; the AI is instructed not to invent data.
+    real computed numbers PLUS genuinely-fetched recent headlines; the AI is
+    told to base real-world reasoning ONLY on those headlines (with source +
+    date), never to invent events, and to say so when news is missing.
     """
     hist = result["history"].tail(16)
     fc = result["forecast"]
@@ -272,6 +275,30 @@ def generate_forecast_analysis(food: str, location: str,
         f"{str(row['date'])[:10]}: forecast {row['forecast']:.2f} "
         f"(95% range {row['lo']:.2f}-{row['hi']:.2f})"
         for _, row in fc.iterrows())
+
+    # --- Real-time news grounding ---
+    try:
+        from src.analytics.news import fetch_news
+        news = fetch_news(food)
+    except Exception as e:
+        news = {"headlines": [], "error": str(e)}
+
+    if news.get("headlines"):
+        news_block = "\n".join(
+            f"- [{h['date']}] \"{h['title']}\" ({h['source'] or 'source'}) {h['link']}"
+            for h in news["headlines"])
+        news_instruction = (
+            "Use ONLY the headlines above for real-world events. Cite the source "
+            "and date in-line for any event you mention (e.g. \"per The Edge, "
+            "2026-06-15\"). If a headline isn't clearly relevant, ignore it. Do "
+            "NOT invent or recall any event, export ban, or weather story that is "
+            "not in this list.")
+    else:
+        news_block = "(No news headlines could be fetched right now.)"
+        news_instruction = (
+            "No live news was available. Do NOT invent or recall any specific "
+            "current event; say plainly that no recent news was found and keep "
+            "the real-world section to general, clearly-labelled seasonal context.")
 
     lang_instruction = ("Respond in Simplified Chinese (简体中文)."
                         if lang == "zh" else "Respond in English.")
@@ -291,10 +318,19 @@ Statistical forecast:
 Computed statistical facts:
 {facts}
 
-Write a concise market analysis (max ~300 words) for a shop owner:
-1. Interpret the forecast in plain language - what should they expect and do?
-2. Possible real-world factors that typically drive this item's price in Malaysia/Sabah (seasonal supply, imports, fuel/transport, festivals like Ramadan/CNY) - clearly label these as general knowledge, not data.
-3. One practical recommendation (e.g. stock up now vs wait).
-Do NOT invent any numbers beyond those given above. {lang_instruction}"""
+REAL-TIME NEWS HEADLINES (fetched today from Google News - these are the ONLY
+real-world events you may cite):
+{news_block}
 
-    return chat([{"role": "user", "content": prompt}])
+{news_instruction}
+
+Write a concise market analysis (max ~320 words) for a shop owner:
+1. Interpret the forecast in plain language - what should they expect and do?
+2. Real-world drivers: explain which of the headlines above actually bear on
+   this item's price (supply/export, weather, fuel, policy, festivals) and how.
+   Cite source + date for each. If none are relevant, say so.
+3. One practical recommendation (e.g. stock up now vs wait), tied to the above.
+Do NOT invent any numbers beyond those given, and do NOT invent any news/events
+beyond the headlines listed. {lang_instruction}"""
+
+    return chat([{"role": "user", "content": prompt}], max_tokens=1200)
