@@ -1,45 +1,57 @@
 {
   "queries": [
-    "India onion price export supply",
+    "onion price India export",
     "onion price Malaysia"
   ],
   "headlines": [
     {
-      "title": "Malaysia red onion programme aims to cut imports by 30% - FreshPlaza",
+      "title": "Govt hikes onion procurement rate to Rs 16.5 per kg - The Siasat Daily",
+      "source": "The Siasat Daily",
+      "date": "2026-06-12",
+      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNVXNtSUxVRkJ5anJORElsMW1aTk1wcWgwUVRadmx4dzBReXpYYkpHeWdkRHlMUHN0Q1RRWEZoU3VpdWtvS1ZHaW04SS1KcmQteFRMOEVGQ3dFenllczlBR2hPZ1c1SEw1b21IZENITDc0ZzRLUlVtYUozTjJ3OWcxd3p4ZjZXQm5pUUc00gGQAUFVX3lxTE9aM2lmbmxjbGMtLWJYTm5pQlN0VDVPUkdybEJrSm50VlVHMjlxQWUwdXlMWW9TemhLeld3ZXdrVVN2b0lsZnZTamNIQ3RsQnktZGxhekhkcFhUTnl3aEQtT2tHWVMwRW5GeFVrc253NGJuTmNlbk5yRUw4TUlVQ0V3QVZ2aTZ0ZlNmZkVuTDN5bg?oc=5"
+    },
+    {
+      "title": "\"Onion exporters are facing an incredibly hostile cost environment\" - FreshPlaza",
       "source": "FreshPlaza",
-      "date": "2025-09-30",
-      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNSkw2c3p6cWllclVxeERORDJabjJmMlBUNFlTczU2UGt0b25WLVVnSjhQTTdoenBXMS1XV0RORWpNcW9WMS1kRzYtVmtmOFpFYTBjdEdXSTFIVXZKQ0NXbkdLZTZmbTJrNHhaU1hGNUtpNVdHTWlzT04yRERlcUZfejBrWGxrLV9RcHA0SGpFNm0wNjBxTTA0Mm1QMlM1dzdRTGRhMWlfZUg?oc=5"
+      "date": "2026-06-10",
+      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOcHM2ZmtpcTFvbUhMZGRNbW54M0dUaGRoNjJiQUJjd29OemNHbkk1TWtrSFNURGgzR2Q2cnp6WXhFTnFwdnpDVXl4OW53MlYxbWc1NERnbVZPbHpHYUxvemlVWUhtZGtzbnZCSjdBV1Y4eTIyMUhXWGZzRlNtRGMxVnlNSXRHWFdtVG50WUVYYUNvOGVuYWVSZ1p5eFNCY2NlNlE4b043Z3lsRG5YUkhWVk90ejVJWWJvc2U2N1ZDbUU?oc=5"
     },
     {
-      "title": "My Say: High costs of food insecurity - The Edge Malaysia",
-      "source": "The Edge Malaysia",
-      "date": "2025-06-24",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9xeGJOdXo4OWJya1JHdDBiTWJ0bUYxV2piSnNoMDVITkk0MEdEZWRrRXBnNDM2aVRIOGZZcDF0ejRGZWpaRjB4aHdYMHZCR3Rv?oc=5"
+      "title": "Maharashtra sets up panel to study onion price crash, export policy impact - MSN",
+      "source": "MSN",
+      "date": "2026-06-10",
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOT2g4SHFwQ3RnQjBoWEc1NXRtMnlGY0pCcHBvMWxvOHJ3Ql9LT0VrZXh5UXBsWnVHamc5OHgxSENBMkdsaExZcVJKVG1HUjU3c1FERmxJamFHaExPSmIxajJBT044ZlNyeUN6T3ZZdmVfZlVqaWN1U2R2QURrdlBGaW1NZW9iTm9RaTlSaXh2eHFURExvVzFqazRmR1JhcTRIQVN6alpjUklGS0FpSVY4bUtXdTlaT21Ta0dBRFo0QQ?oc=5"
     },
     {
-      "title": "Tears to keep flowing over high onion prices in Malaysia - Asia News Network",
-      "source": "Asia News Network",
-      "date": "2024-03-27",
-      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNX3NyWWJtSGdLR0hrYnlMdENNMFBTNDZtV1BVYlE3ZW5nR0NpaktLV1JzdWdFSVdPRVVQa1BJMTctaTZTUnVQNG4xQmk1S253UUZXaDhiY091clJOdE5rM1BFMnA4RkUtZkROZko3ekR3alhoSUVpZ0F2TUh2WVdDQl9qT1NCWXdRQlE?oc=5"
+      "title": "Onion farmers seek Rs 10,000 crore revival package, stable export policy from Centre - MSN",
+      "source": "MSN",
+      "date": "2026-06-10",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNcXpFVjd4QWVDWm9nM1pDZ0xEMmQ0OThXMVNFejZwWS1QVGQwZGZ3bmplYUZXeXo0LUhNOUdQSi1RWUFXendCUEdKeUp0Nks4N1N6S2FOYzBLYTRXVlo1Y19WaTdNbUdVeE1TY2oxQTVkSzNzd0RWLWdFWjlfdFpfMkFWdWctNjU5TENuSUxDQlJiYVBHLVlkWl9HS29jVjFicjhObnN0ODRVY1lLQVgxVWplY0JKLVo0SzhJYkRiaHBTbHVscTR3UlpSQWpXeGp4NHZR?oc=5"
     },
     {
-      "title": "India extends ban on onion exports to Malaysia, other countries indefinitely ahead of general election - Malay Mail",
-      "source": "Malay Mail",
-      "date": "2024-03-23",
-      "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxPX2huYmV0VmlnVEVaSG9Fa1NaaWtlTlpJRWtYLVVhUkV0dzZWcXEyUmdRSk9NNjhMTU85X0xfVkthYjNCcFJPRTdtY25xMkktbVBoSmNrYWxNSE9uLURWbnhwVUpjWkZCSWRyNTNQYjFrenJDS2RKY0duNGR3dl9wMmlEVDc0aVFjd3ItbHNhb2FjTXo2UTVxOHE5YU9QMkZQRHVGNnNHNmVpeXBSWkd3NDdJM2NGVG1oTGFZSkVNcGNUZmpTcjhIQmg2eDFHWVY1Q3o5OHlMaGRheUpzY1B5bmladmtEd2FjTWRfU01LVmnSAfYBQVVfeXFMTTA2ZTJlb1RsamZ4aGMxUmx4YnVWNjVmRUVzMGNPempRTkx6OUhzX2sxQ1JxeEFmVU9HT0JfQUhhaUh5bnlnb1Z2U0pLN2JGUDUzTUNmdEJfWWdTVzloLWhUanpVQWhMUmdNTVZRQmgxZWdvWjh5N0xMVW0tQlgwT3RsVnRHN25DaXVfRjVNMjZXVnpyTjRTY0RZX1JFZWJFT2RocjhFWXVlb3hINk1FWG5VamhNUVVvLWZjMUFEcnMtdmRRbERNMmRKR1F1S295Mk50QXFONlI4bDRQZlpwN3htczhubDdndmJWZ2ZKOWFDdWVVQmNB?oc=5"
+      "title": "Oman trade deal boosts prospects for Indian onion exports - FreshPlaza",
+      "source": "FreshPlaza",
+      "date": "2026-06-09",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNU3FZdUtWMXljNjNGNVZLUlJxOGNjYVJ0MmFlc1dvd25CUnZCOTdoQUl5dFhuaXQteFJwMGNRRjZmQWw3Nm15UTJDYm0taW53TTB0M0VWeHdldXFfRFRub2FYQ0tkSV9YWVo1dlZaekc1Sy1jREhkWFBBOTBrRElvSUg0YUpJNEl3MURhTnViTzY4TmU5a3JxdFhDaUlWN2VOeTJBZ1NOd0xoQQ?oc=5"
     },
     {
-      "title": "Prices of onion, garlic in Malaysia rose by over 30pc in June compared to last year - Yahoo News Malaysia",
-      "source": "Yahoo News Malaysia",
-      "date": "2020-07-21",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPa0Ytdk43TXEwX216QkNfZTNZNUM2eHFVSFFBa0RvalBWNUNIWmV0cHdOVkN6VzVhQXd6TXBNcXJBRWVpbXRhV01XYlRuZWpfOVl3NkxPcWJIV1k3OUc4aGlaVVpQOHJOTDVRZzVoYzZEdURiSnl0WlZuUERCX0FXdGRmSE90dUE?oc=5"
+      "title": "Maharashtra sets up expert panel to study onion price crash, export policy impact - Mid-day",
+      "source": "Mid-day",
+      "date": "2026-06-09",
+      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPT28xWXRpamU2SGIxV2RRU0QtdVJ6TGhCb3NuZmFMRzA2ZVIyaHFhdldzeUJmY18yMzVQQ0kweXdWdzNGLUhPRVllNVc4Ri03WVBqekRBNHdCdVhJX1c3VVlfUUlpeEdKZnhpVE5GZTZ3aWxTa0xhZzZqejA3VEFhaC1SeVYwSnlOQ0xBdmFwSzZLUVBJWXVKNVNaZy12TE5FOUFhR3hhQVhfbVZBRHJud09PN0JMRkZLblprR1hXZ0fSAcYBQVVfeXFMUDNoQzJKS1NiUXJSbktsR3k0WFVnV1ZCOTBIbGhpbFVhZnY3M3gzRzdwQm9aNzFRLUVEcDIwaHJqaHlwVmx1UDUyLXFkeHdEeksxeTJqNXR2QUppbE1rT0paakp6MVpwajBNNU5TbFhSMHFMaHhYVGp5bjVPcml1SXJOQkV6YVU0TzZhcFdISGtvc2s5eUlwV3o0YWZIanByTTkzbklKRFhIYWVtampDZlF4UkJnM1JVMm9lY1lpa2xvZkhtb0Fn?oc=5"
     },
     {
-      "title": "Why Malaysia depends on India for onions? - Bernama",
-      "source": "Bernama",
-      "date": "2020-01-30",
-      "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1Ia1JyQUw0TE9acGJRekdaNHlrNVFBV0l5MG9FS0tGek56elZGMEtCUG9obGk2R2lqUm1mYzFRZEQwdjVjUnhleWI4R2tkRmlmQTdRYg?oc=5"
+      "title": "Maharashtra forms panel to probe onion price drops and exports - NewsBytes",
+      "source": "NewsBytes",
+      "date": "2026-06-09",
+      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPcWNORW1XVWNJTDREWURyS0piQlV6TGtGSUtxZmlDU1I3YklLSUdvaXNGRXRnZ3lVdG9WRGtaQkJEMHZJTktPcTlxeGRXWGRKejZSd044YURkaDRVejdyUGJpMTlQaVpkR0RGa2l3eWdWTU82VGpxTFliZ2J1VmZRYjRGOWNJZEZGcHk2dUpUVjdHM3dlaG5hWVBCUHA1WjRaM005TlRXSVAtUmc?oc=5"
+    },
+    {
+      "title": "Maharashtra sets up expert panel to study onion price crash, export policy impact - newsdrum.in",
+      "source": "newsdrum.in",
+      "date": "2026-06-09",
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNNHlfQ09PTlV2bnNPZ0ZvTGVGSkpSNGxzS1FHRHpwelc5QzdmTUFtMnNLMnNUUU1LSVNNUlFzN0pGVkUxQ2RiUnoyZ1VyYmw0Mzk1ZHkxVk5rbElpenR4dU94Y3BkbnY1M0JCSllodmxTdjRZSzN1Y1RIY3F4U01qdmJoLXJuR2pZSVRBQTBNeDJOclNzNjJISXBYb1pNN0JOajA0TmgzTzM4ZTdLZnB5U3JBRHNjdVBYaGxmV0NiRdIBvwFBVV95cUxNNHlfQ09PTlV2bnNPZ0ZvTGVGSkpSNGxzS1FHRHpwelc5QzdmTUFtMnNLMnNUUU1LSVNNUlFzN0pGVkUxQ2RiUnoyZ1VyYmw0Mzk1ZHkxVk5rbElpenR4dU94Y3BkbnY1M0JCSllodmxTdjRZSzN1Y1RIY3F4U01qdmJoLXJuR2pZSVRBQTBNeDJOclNzNjJISXBYb1pNN0JOajA0TmgzTzM4ZTdLZnB5U3JBRHNjdVBYaGxmV0NiRQ?oc=5"
     }
   ],
-  "fetched_at": "2026-06-16T08:36:16"
+  "fetched_at": "2026-06-16T08:43:42"
 }

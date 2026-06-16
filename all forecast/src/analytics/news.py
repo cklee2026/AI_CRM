@@ -27,6 +27,12 @@ CACHE.mkdir(parents=True, exist_ok=True)
 CACHE_AGE_HOURS = 6
 UA = {"User-Agent": "Mozilla/5.0 FoodPriceTracker"}
 
+# Only news this recent is relevant for forecasting the next month or two.
+# 120 days back from mid-2026 excludes all 2025-and-earlier articles, which is
+# exactly the "why is it citing 2024 news" problem. Google News also gets a
+# `when:` operator so it returns recent results server-side.
+MAX_AGE_DAYS = 120
+
 # Map a tracked food to an English commodity search term. Matched as a
 # lower-cased substring of the food name; first hit wins, so list the more
 # specific names first (garlic before the generic onion fallback).
@@ -82,15 +88,21 @@ def build_queries(food_name: str) -> list:
     origin = detect_origin(food_name)  # e.g. 'INDIA', 'CHINA', or None
     origin_word = origin.title() if origin and origin != "IMPORT" else ""
 
-    global_q = f"{origin_word} {commodity} price export supply".strip()
+    # Lead with the commodity so results stay on-topic; origin/Malaysia add context.
+    global_q = f"{commodity} price {origin_word} export".strip()
     local_q = f"{commodity} price Malaysia"
     # De-dupe if origin made them identical-ish
     queries = [global_q, local_q]
     return [q for i, q in enumerate(queries) if q and q not in queries[:i]]
 
 
-def _parse_rss(xml_text: str, limit: int) -> list:
-    """Parse Google News RSS into [{title, source, date, link}]."""
+def _parse_rss(xml_text: str) -> list:
+    """Parse ALL Google News RSS items into [{title, source, date, link}].
+
+    `date` is YYYY-MM-DD when the pubDate parses, else None (date filtering
+    happens in fetch_news so an unverifiable date can be dropped, not trusted).
+    Parses everything (no early cap) so the caller can filter by recency first.
+    """
     items = []
     try:
         root = ET.fromstring(xml_text)
@@ -103,8 +115,7 @@ def _parse_rss(xml_text: str, limit: int) -> list:
         src_el = item.find("source")
         source = (src_el.text.strip() if src_el is not None and src_el.text
                   else "")
-        # Normalise the date to YYYY-MM-DD when possible
-        date_str = pub
+        date_str = None
         for fmt in ("%a, %d %b %Y %H:%M:%S %Z", "%a, %d %b %Y %H:%M:%S %z"):
             try:
                 date_str = datetime.strptime(pub, fmt).strftime("%Y-%m-%d")
@@ -114,17 +125,17 @@ def _parse_rss(xml_text: str, limit: int) -> list:
         if title:
             items.append({"title": title, "source": source,
                           "date": date_str, "link": link})
-        if len(items) >= limit:
-            break
     return items
 
 
-def _fetch_query(query: str, limit: int) -> list:
+def _fetch_query(query: str, days: int = MAX_AGE_DAYS) -> list:
+    # `when:Nd` asks Google News for results from the last N days only.
+    q = f"{query} when:{days}d"
     url = ("https://news.google.com/rss/search?q="
-           f"{quote_plus(query)}&hl=en-MY&gl=MY&ceid=MY:en")
+           f"{quote_plus(q)}&hl=en-MY&gl=MY&ceid=MY:en")
     r = requests.get(url, timeout=20, headers=UA)
     r.raise_for_status()
-    return _parse_rss(r.text, limit)
+    return _parse_rss(r.text)
 
 
 def fetch_news(food_name: str, per_query: int = 6, total: int = 8) -> dict:
@@ -146,21 +157,33 @@ def fetch_news(food_name: str, per_query: int = 6, total: int = 8) -> dict:
                 pass
 
     queries = build_queries(food_name)
+    cutoff = (datetime.now() - timedelta(days=MAX_AGE_DAYS)).strftime("%Y-%m-%d")
+    # On-topic guard: the headline must mention the commodity (a word >=3 chars
+    # of it), so generic "India business" / "oil price" noise is dropped.
+    commodity = commodity_for(food_name)
+    topic_words = [w for w in commodity.lower().split() if len(w) >= 3]
     headlines, seen = [], set()
     error = None
     try:
         for q in queries:
-            for h in _fetch_query(q, per_query):
+            for h in _fetch_query(q):
                 key = h["title"].lower()
                 if key in seen:
+                    continue
+                # Drop anything we can't date, or that is older than the window
+                # (the whole point: no 2024/2025 articles for a 2026 forecast).
+                if not h.get("date") or h["date"] < cutoff:
+                    continue
+                # Drop off-topic results (must mention the commodity).
+                if topic_words and not any(w in key for w in topic_words):
                     continue
                 seen.add(key)
                 headlines.append(h)
     except requests.RequestException as e:
         error = f"news fetch failed: {e}"
 
-    # Newest first when dates are parseable; cap to `total`.
-    headlines.sort(key=lambda h: h.get("date", ""), reverse=True)
+    # Newest first; cap to `total`.
+    headlines.sort(key=lambda h: h["date"], reverse=True)
     headlines = headlines[:total]
 
     result = {"queries": queries, "headlines": headlines,

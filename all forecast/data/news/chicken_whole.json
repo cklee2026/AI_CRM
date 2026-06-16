@@ -1,9 +1,15 @@
 {
   "queries": [
-    "chicken price export supply",
+    "chicken price  export",
     "chicken price Malaysia"
   ],
   "headlines": [
+    {
+      "title": "Eating chicken three times a day is costing us more than we think - Focus Malaysia",
+      "source": "Focus Malaysia",
+      "date": "2026-06-13",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPSUVJYXRqLV9yMnlxcGU2MFZFdnpMdnR1Rk9nQW45VWJWWDBKaksxYjFRbF83YzdzT0VocXV1anltazREM2RVUEhpNHpUMF8xeEFxUHdpZGF4YXIyaURLaXhMNVl6VDlBaGluN2FCdm5COFIxQ004ek1RQ3AxcHgtZWJPcXR5VnRlSERRZFFTWVJCOHMwMkE?oc=5"
+    },
     {
       "title": "Malaysians Told To Cut Chicken Consumption To Once A Day - says.com",
       "source": "says.com",
@@ -11,47 +17,41 @@
       "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOUU9YNnExVHoyRWtVUFlETHJSbmRKYngtX2VJdTFjUHhoNml6STl4MTFLaTJHUFVSZW1CRkNmUkNsYVMxSXd0Rm5pNVBLemtibWRoSVZCUzhsbWdTMW5LeFRjQUJmcGFYeXZRWHMtWGVMZFFsb1d1M0tIUUpsZENjSWdnTF9UQURY?oc=5"
     },
     {
-      "title": "Poultry Production Expands While Prices and Exports Face Pressure - RFD-TV",
-      "source": "RFD-TV",
-      "date": "2026-04-24",
-      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPZHBLRGxKd0hiME5ObTNrTVZqdHRzSlBRTGdjaHZyeVNtX0U5QVN1MmdScy1uSGoweFFmNDRzOWxWdmhkbXR6dHlKX2ktWG9ZdF85WHpvWU5nZWdIQVpsWWJDQ1hTRlBhOWJacHZLeS13M3gySllMd2RuejNacWFYRFNNdzNmVXAzMkJWd01jVWo?oc=5"
-    },
-    {
-      "title": "Enough chicken and eggs, but veggies in short supply - Free Malaysia Today",
-      "source": "Free Malaysia Today",
-      "date": "2026-04-24",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOMTVWRC14cm1CcG5VTU5XYmE1VHhiRzBZNnVSdjlJNnhvRk1BdXhqWE5oVks0d3NuWnhBYWstNzNxcVBtZGZ1eWVNN0VZdjJRLV9JR0kwNzlaY3dpY0hFV1M2RlkyU3lfYU5mU1g5OExXNGdUNGdoZ3RhNU92dUpjWDNkd1d6bWJ0emY1YXpxWW9VRlh6aWZ0NzNNZi1lZ1R6MUgyd09oUTZWX0N3OThsOTFB?oc=5"
-    },
-    {
-      "title": "1471. Global Food Price Trends, March 2026 | Japan International Research Center for Agricultural Sciences - jircas.go.jp",
-      "source": "jircas.go.jp",
-      "date": "2026-04-06",
-      "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5VenNVdjJXMzNpNVYyY3dxQjRTLXEzQlVvVjl3dEI4UmcyRGlKWHZmNHJoOEZmSGV6QUl5WFR2Vi1PcDRSbEN1bDhya2hKa1hnXzRwNERPQ0RQUm5Kd29UekNrS04?oc=5"
-    },
-    {
-      "title": "Chicken prices may rise following diesel price hike, says FLFAM - The Malaysian Reserve",
-      "source": "The Malaysian Reserve",
-      "date": "2026-03-31",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQS1F4MUZWVXNhdUVfcnVlQ3YzdVRZLXpuWEZDd0JuSUluZExnX3ZzRG5UZ19oU0RvejZlcG02NGZVcEY5MGJjZUxHVkZXcU02cHdMRFdrQjhVODBoM240MUZsOW5XYlA2dGh1UFZIcTZpZUNxcVRocmpNTEgxTlpTQzcxcnFIeUtFYnptYXJEZWhmZGxtc1ZHNDdSN3JwU1BrdDBzV2h3clg3QQ?oc=5"
-    },
-    {
-      "title": "Livestock farmers warn chicken prices could rise amid soaring diesel costs - NST Online",
-      "source": "NST Online",
-      "date": "2026-03-30",
-      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNQW5VODVONm5kdEc1cGE5bFdvT3VhcS1idnFnc3FCbUVha0pzVm9UV05uTllMWlZESmtGSlljWXl5Rkg5V3lkRlE2S05YRUVQbVNvX190NktYVk0yb1NydkRMMUl6aFU5dHJ2TmNmcnJSdGtUcEpqMVBFZEdYRzNWa1dCelA3M3F6RDEzUmh0QVhJY0t5UFBHRjNmVEFIVV9LVkRSNDY1VnFvNkhtSkRWX2xtSGFjaGpfR1ZOSm5B0gHDAUFVX3lxTE5NSGhpWVVaYUVsWlk1UVFkSWV1eWdfRzVEbjkxN09wa3IycTVCcGlBTkFOQ3ZBLTg5eEsycXVPenVmUUgxQWNnb2hPYXlMRDhRQUZOdkxSUk9qYkgyaWo0dW9ubS1Rck9aYTBvUFgzcUU1MTYzeVEzcW56dlh4TWZaU1BIblNweDJNc0tvcm1XR3lvNW45MVl0c0hzQkFOT0NTck9UOHR4UFN5Q213aXE1Z0JfNUdXNW5XTFE0RWM0WnlWVQ?oc=5"
-    },
-    {
-      "title": "Malaysians May Face More Expensive Chicken And Eggs, Reduced Supply, Producers Warn - CodeBlue",
+      "title": "Eat Less Chicken During Global Crises: UPM Experts - CodeBlue",
       "source": "CodeBlue",
-      "date": "2026-03-17",
-      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPZUkyamc3ZXBIUTZIY1MwWEpXNEt2R3o0b1Z0ai1uTEVNdnhCNm1BT1Q3SGxUUzloUU9MckhoZURDbmdEME1yYU9zUklPMnZjUjBJeV9oQkdneVNLdHF5MTBhUS1zVk5INk91Vl9TbUR6enRldlRTbzZWNnJ0RkdkWl9Cb0pJaDNVem96NmNIVEVHUXg3RHB0VnhybXlnUW92OE44ek9EaDQwTElZZ2JvWmZKMEx0bDVIYWZtYjd5aEM?oc=5"
+      "date": "2026-06-11",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxORFB4Z2lCOXdEOFFrczVoX21pTndLZEpQcVpFODNBMzRjdmZxNGhYaUxEbTFrRkV6Y2RHZnRBQ0l6amprSDlaRVU4VnFiRGpBcGJuMTJ1RGpzU3M5VHVKSUNiWUhhMVlKbGhEdE92Q2RSVzlESzRhQm1lU1NhTXh3UWdVZ2hoUlNvRDRTcGsxaklUUV9CX0E?oc=5"
     },
     {
-      "title": "Chicken prices, demand robust as supply stays tight - WATTPoultry.com",
-      "source": "WATTPoultry.com",
-      "date": "2026-03-06",
-      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOaHI3Vi1VQVFXM3p2MWdhbmRDQ3ZSbmZxV0w4RERYZ3VEZ3lQRXktWnpHQzdTNExEdEVDRF9yWWxiM3lILUd0R0dFS0hZV09NSkVoSlpzd1FWT0doM1lfRUNyNVhobWZVT1JkZFh1aVkwVm5oYjctWHUzYlVscUhsdFcweVNGeU11Z3pXa2VETzZ6VEt2ZEZQMkpWcnB6VzBleFhlRmt2QjRLOHQ1V0I2Y0VoMXo3Y0Zlc1hORGFOZHlNZkZYVkdSNHg2ZEtxOWo1?oc=5"
+      "title": "Brazil chicken prices rise to five-month high as poultry exports surpass US$1 billion in May - Food Business Middle East & Africa",
+      "source": "Food Business Middle East & Africa",
+      "date": "2026-06-09",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPb0VKdXNfRkxNZGcyLXppT0ZmaFRKR0JTeDNfMlVjaWtxbk4tRExoU0pGemhlYmwyekFIYk42SnBMNUR4R19OQVdQaDgtcHpQUklGeVVkcFNVLVl4Nm5CR2NYVDRtY1QwY3VONlVuV1NYZUhVcXYzclpvbDNGaklaX1hkVy10LXdldGM5Vkw2T3RUNkRkUG5aek1VT2VrWUVKR1UxYjJIemxURk5lZXlvMFdPMUE5ckZfcjQxNkhLaHdUQQ?oc=5"
+    },
+    {
+      "title": "Chicken Leads Mexico’s Meat Market - Mexico Business News",
+      "source": "Mexico Business News",
+      "date": "2026-05-26",
+      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNS0lLOWFYOTQxRW44U2tvNEdxMm5Ob2FZS3BWcnhUWVlFdWxILVRveklpUlJJdG1pZWN3YUtKQk9DaThQQ2NMRk9LeGVwd3F3Q1pxRno4M2o1dFVvUTMwMy1FV0NybkEyZjg1VGN0ZmUwU1pEZEsxaWdNZzA4YVU2SmtMXy1HQQ?oc=5"
+    },
+    {
+      "title": "Cause of rising Sabah chicken, egg prices - Daily Express Malaysia",
+      "source": "Daily Express Malaysia",
+      "date": "2026-05-19",
+      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNaVNHdkNVaUVEanlySFpmUWRjeDRQeXNBQndpclZWVmxYekRwazA0UHh0Z2pfMmM1c2JnTE1MUEtMZVpDbTF4WHIwME5ST2dLQ2hhWDhINGozN0h6aXl3M2lWVHl1N0p4VTVWRTFrdXpwSzRLZTYwTWZIa1UxZElpNWJyU3dwMjJtRnN2eFdhOA?oc=5"
+    },
+    {
+      "title": "Chicken franchises defy Korea dining slump with delivery, new menus, exports - CHOSUNBIZ - Chosunbiz",
+      "source": "Chosunbiz",
+      "date": "2026-05-18",
+      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE43a1kydTE4VGJuOFlGeVhNZS15c3Z3Mk0tOTdoRXBoTzdjRTNtbEFlQVBRRTZuejVpQzBEQUozYTFoTnpDbmFEOWJnYU92ZFN0ZWp0TmZMYnBXQ3ZzblpCSVdJNklhRVk5c1YwejNjZ3FyR3lzNDdCSTBjOWNRNFnSAZMBQVVfeXFMTk1TcGlzUzRZemhaTHZpWHU3Vy1VbFBiZ3dvbWctLW1RbkREWnFBT0luc2loQnM2ZnM5NkZLZG5CN0VRLVFiQkdCeU1waGhlTTVLVnVuVk45RFlKa1oxUGdOZXRYX3diVmpYT0dxOTFRYTFXYkFNamp5eG9XZ3RMQ2lUY2VWVXpRU0lLOTVrWUhvWkFN?oc=5"
+    },
+    {
+      "title": "Sharp rise in chicken and beef prices in Kerala as inter-state supply declines - Mathrubhumi English",
+      "source": "Mathrubhumi English",
+      "date": "2026-05-12",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPdHl3QXBsRHdGUFdudkUwdHFITHBjTFNpZXJ6M3h3d2QxWEVoeC15QzU5a2N5Z0dwZ19ISG1RNWFMZTBxSjd6MHBJb1NoQ3h6WlFjRXlwTWdOc2M0d3VENlZ0cV91MmhlNFNhYzEwVjgwdHE4cE8wTi1EM1hZa2hMSks0WkJsUUtQM2ZxcU1lNDczZzJ5NHN0WmxSamVacW9wV3JpMEgyZ082dThyTXl2dGExZW55cTU3ajZOal9pMWZFcWZlc056NDh6Y9IB0AFBVV95cUxQb3RsMVVST1A2X2lfMXlHT245LWUtNjk3X2gtTFpqcGdEeldVZkZPSVFVcFlySjF2MHFrZnNRdWRicHFGUzQweUstVTdiTEpkcmVLVmF0WFdXVWJYQllHUm10TDhyd3J4Sl9nX2pEZzhpUm9kS2xQVGh4UXltU3IwOTFzRTNzclFFdmJQSFV6bXlHWmRxcnRDRTZOZV91cWZsaGVYdmRnZUxELTRhcmtKeC1uYnVMbEdKbDN4cEJhMHM0UmpVczRmQ1pRbGotMUto?oc=5"
     }
   ],
-  "fetched_at": "2026-06-16T08:37:33"
+  "fetched_at": "2026-06-16T08:43:46"
 }

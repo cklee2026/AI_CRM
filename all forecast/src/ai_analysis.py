@@ -268,6 +268,16 @@ def generate_forecast_analysis(food: str, location: str,
     meta = result["meta"]
     facts = "\n".join(f"- {r['en']}" for r in result.get("explanations", []))
 
+    # Real Malaysian festival/seasonal calendar facts (dates to watch), so the
+    # AI accounts for the actual calendar instead of guessing about festivals.
+    try:
+        from src.analytics.calendar_alerts import price_calendar_alerts
+        cal = price_calendar_alerts(food, location)
+        if cal:
+            facts += "\n" + "\n".join(f"- {a['en']}" for a in cal)
+    except Exception:
+        pass
+
     hist_lines = "\n".join(
         f"{str(row['date'])[:10]}: {row['price']:.2f}"
         for _, row in hist.iterrows())

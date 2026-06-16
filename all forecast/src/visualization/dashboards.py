@@ -706,6 +706,16 @@ elif page == "Forecast":
                    "collect more history for better accuracy. "
                    "预测为统计估计，数据越多越准确。")
 
+        # --- Festival & seasonal price alerts (calendar dates to watch) ---
+        from src.analytics.calendar_alerts import price_calendar_alerts
+        cal_alerts = price_calendar_alerts(selected_food, selected_location)
+        if cal_alerts:
+            st.subheader("📅 节庆与季节提醒 / Festival & seasonal alerts")
+            st.caption("哪些日子价格容易暴涨或暴跌、需要特别注意。"
+                       "Calendar dates that tend to spike or crash this price.")
+            for a in cal_alerts:
+                st.markdown(f"{a['icon']} {a[lang_key]}")
+
         # --- Optional AI analysis (bring-your-own-key, see AI Settings) ---
         from src.ai_analysis import load_settings as load_ai, \
             generate_forecast_analysis, AIError
@@ -1044,6 +1054,17 @@ elif page == "Seasonal & Anomalies":
                           yaxis_title="Seasonal Index", xaxis_title="Month")
         st.plotly_chart(fig, width="stretch")
 
+    # --- Festival & seasonal price alerts (calendar dates to watch) ---
+    from src.analytics.calendar_alerts import price_calendar_alerts
+    sa_alerts = price_calendar_alerts(selected_food, selected_location)
+    if sa_alerts:
+        st.subheader("📅 节庆与季节提醒 / Festival & seasonal alerts")
+        sa_lang = st.radio("语言 / Language", ["中文", "English"],
+                           horizontal=True, key="seasonal_alert_lang")
+        sa_key = "zh" if sa_lang == "中文" else "en"
+        for a in sa_alerts:
+            st.markdown(f"{a['icon']} {a[sa_key]}")
+
     st.subheader("Anomalies (unusual spikes/drops)")
     z = st.slider("Sensitivity (z-score threshold)", 1.5, 4.0, 2.0, 0.5)
     anomalies = detect_anomalies(selected_food, selected_location, z_threshold=z)
@@ -1060,6 +1081,19 @@ elif page == "Seasonal & Anomalies":
 # ============ PRICE ALERTS ============
 elif page == "Price Alerts":
     st.header("Price Spike Alerts")
+
+    # --- Malaysian festival calendar watch (general demand patterns) ---
+    from src.analytics.calendar_alerts import festival_calendar_alerts
+    fest_alerts = festival_calendar_alerts()
+    if fest_alerts:
+        with st.expander("📅 节庆价格提醒 / Festival price watch", expanded=True):
+            st.caption("马来西亚节庆通常会推高食品需求与价格。"
+                       "Malaysian festivals typically lift food demand and prices.")
+            pa_lang = st.radio("语言 / Language", ["中文", "English"],
+                               horizontal=True, key="pricealert_fest_lang")
+            pa_key = "zh" if pa_lang == "中文" else "en"
+            for a in fest_alerts:
+                st.markdown(f"{a['icon']} {a[pa_key]}")
 
     from src.alerts import detect_spikes
 
